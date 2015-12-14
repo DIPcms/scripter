@@ -69,7 +69,7 @@ class ScripterExtension extends CompilerExtension{
                             $this->prefix('@macros')
                 ));
         
-        $builder->getDefinition('scripter.latteFactory')
+        $builder->getDefinition($this->prefix('latteFactory'))
                 ->addSetup(
                         'DIPcms\Scripter\Macros::addMacrosForCompilerJsCSS($service,?);'.
                         '$service->addParams("_macros",?);'
