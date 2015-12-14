@@ -24,11 +24,6 @@
                 "latte/latte": "~2.3@dev",
                 "nette/caching": "~2.3@dev"
 	},
-	"autoload-dev": {
-		"psr-4": {
-			"DIPcms\\Scripter\\": "src/"
-		}
-	},
 	"autoload": {
 		"psr-4": {
 			"DIPcms\\Scripter\\": "src/"
