@@ -25,7 +25,7 @@
                 "nette/caching": "~2.3@dev"
 	},
 	"autoload": {
-		"psr-4": {
+		"psr-0": {
 			"DIPcms\\Scripter\\": "src/"
 		}
 	}
