@@ -1,7 +1,7 @@
 #Scripter 
 
 ```sh
-$ composer require dipcms/scripter:@dev
+$ composer require dipcms/scripter
 ```
 
 ```yaml  
