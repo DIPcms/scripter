@@ -51,6 +51,12 @@ class ScripterExtension extends CompilerExtension{
         
     }
     
+    
+    
+    public function afterCompile(Nette\PhpGenerator\ClassType $class){
+        $initialize = $class->methods['initialize'];
+        $initialize->addBody('$this->getService(?);', array($this->prefix('scripter')));
+    }
 
     
     public function beforeCompile(){
