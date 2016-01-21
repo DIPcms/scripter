@@ -6,7 +6,7 @@ $ composer require dipcms/scripter
 
 ```yaml  
 extensions:
-	scripter: DIPcms\TemplateExtension\DI\TemplateExtension
+	scripter: DIPcms\Scripter\DI\ScripterExtension
 ```
 
 ```php
