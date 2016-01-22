@@ -31,11 +31,8 @@ extensions:
 
 ```
 
-
-```html
-
 To retrieve the css and js use a macro in a template {scripter}
-
+```html
 <head>
 	{scripter}
 </head>
