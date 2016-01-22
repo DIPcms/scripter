@@ -137,14 +137,14 @@ class Scripter extends Nette\Object {
             $css = file_get_contents($path);
             $file = new CacheObject($path, $this->minifiJS($css));
             $this->cache->replaceFile($path, $file);
-            $this->saveFile('js');
+            $this->writeFile('js');
             
         } elseif (!$file_cache) {
 
             $css = file_get_contents($path);
             $file = new CacheObject($path, $this->minifiJS($css));
             $this->cache->addFile($file);
-            $this->saveFile('js');
+            $this->writeFile('js');
         }
     }
     
