@@ -1,0 +1,32 @@
+{
+	"name": "dipcms/scripter",
+	"description": "",
+	"homepage": "http://dipcom.cz",
+	"type": "Extension",
+	"license": ["MIT"],
+	"authors": [
+		{
+			"name": "Mykola Chomenko",
+			"homepage": "http://dipcom.cz",
+                        "email": "mykola.chomenko@dipcom.cz"
+		}
+	],
+	
+	"require": {
+                "dipcms/template-extensions": "~1.0@dev",
+		"nette/di": "~2.3@dev",
+                "latte/latte": "~2.3@dev",
+                "nette/caching": "~2.3@dev"
+	},
+	"require-dev": {
+                "dipcms/template-extensions": "~1.0@dev",
+                "nette/di": "~2.3@dev",
+                "latte/latte": "~2.3@dev",
+                "nette/caching": "~2.3@dev"
+	},
+	"autoload": {
+		"psr-0": {
+			"DIPcms\\Scripter\\": "src/"
+		}
+	}
+}
