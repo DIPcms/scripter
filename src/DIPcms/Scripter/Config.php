@@ -29,13 +29,12 @@ class Config extends Nette\Object{
      * @var string 
      */
     public $url_path_name = "getsource";
-    
-    
+     
     /**
      *
-     * @var string
+     * @var string 
      */
-    public $base_path;
+    public $default_syntax = "asp";
     
     
     /**

@@ -86,9 +86,6 @@ class ScripterExtension extends CompilerExtension{
         
         $builder = $this->getContainerBuilder();
         
-
-                
-        
         $builder->getDefinition($this->prefix('latteFactory'))
                 ->addSetup(
                         '$macros = ?;'.

@@ -14,7 +14,7 @@ use DIPcms\Scripter\Latte\LatteFactory;
 use DIPcms\Scripter\Cache\CacheProvider;
 use DIPcms\Scripter\Cache\CacheObject;
 
-class Scripter extends Nette\Object {
+class Scripter{
 
     /**
      *
@@ -35,7 +35,7 @@ class Scripter extends Nette\Object {
     public $config;
 
    
-    
+
     
     /**
      * 
@@ -70,8 +70,6 @@ class Scripter extends Nette\Object {
     }
     
 
-
-
     /**
      * 
      * @param string $path
@@ -103,24 +101,46 @@ class Scripter extends Nette\Object {
     
     /**
      * 
-     * @param string $name
-     * @param mixin $value
+     * @return array
      */
-    public function addParam($name, $value){
-        $this->latte->addParams($name, $value);
+    public function getPrameters(){
+        return $this->latte->getParams();
+    }
+    
+    /**
+     * @param string $name
+     * @return boolean
+     */
+    public function issetParameter($name){
+        $parameters = $this->latte->getParams();  
+        return isset($parameters[$name])? true : false; 
     }
     
     
     
     /**
      * 
-     * @param string $type
-     * @return string
+     * @param string $name
+     * @return mixin
+     * @throws \Exception
      */
-    public function getSourceString($type = null){
-        $type = $type ? $type : $this->config->accept_file_type[0];
-        return $this->cache->getDataByType($type);
+    public function __get($name){
+        $parameters = $this->latte->getParams();  
+        if(isset($parameters[$name])){
+            return $parameters[$name];
+        }
+        throw new \Exception("Undefined property ". get_class($this)."::".$name);
     }
+    
+    /**
+     * 
+     * @param string $name
+     * @param mixin $value
+     */
+    public function __set($name, $value) {
+        $this->latte->addParams($name, $value);
+    }
+    
     
     /**
      * 
@@ -128,18 +148,6 @@ class Scripter extends Nette\Object {
      */
     public function getPageName(){
         return $this->config->name;
-    }
-    
-    
-    /**
-     * 
-     * @param md5 $page
-     * @param string $type
-     * @return string
-     */
-    public function getSourceStringByPage($page, $type){
-        //dump($this->cache->getFiles());
-        return $this->cache->getDataByPage($page, $type);
     }
     
     
@@ -154,10 +162,7 @@ class Scripter extends Nette\Object {
     }
     
 
-    
-    
-    
-    
+
     /**
      * 
      * @param string $content
