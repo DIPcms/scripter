@@ -123,14 +123,15 @@ class ScripterExtension extends CompilerExtension{
      * @param Request $request
      */
     public static function register_shutdown(Scripter $scripter, Response $response, Request $request){
-        register_shutdown_function(function()use($scripter, $response){
+        register_shutdown_function(function()use($scripter, $response, $request){
                         
             $page = ob_get_contents();
             ob_end_clean();
             
             $header_type = $response->getHeader("Content-Type");
                 
-            if($header_type && strpos($header_type, "text/html") === 0){
+            if($header_type && strpos($header_type, "text/html") === 0 && !$request->isAjax()){
+                
                 $scripter->cache->removeNotUseFile();
                 preg_match('/(?:<head[^>]*>)(.*?)<\/head>/s', $page, $matches);
                 if(isset($matches[1])){
