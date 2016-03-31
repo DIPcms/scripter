@@ -45,6 +45,7 @@ class Macros extends Nette\Object{
 
             $macroSet = new \Latte\Macros\MacroSet($latte->getCompiler());
             $macroSet->addMacro("img", array($macros, "createMacroImg"));
+            $macroSet->addMacro("file", array($macros, "createMacroFile"));
             
         }
         
@@ -62,6 +63,15 @@ class Macros extends Nette\Object{
         }
         
         
+        /**
+         * 
+         * @param \Latte\MacroNode $node
+         * @param \Latte\PhpWriter $writer
+         * @return string
+         */
+        public function createMacroFile(MacroNode $node, PhpWriter $writer){
+            return $writer->write('echo $_scripter_macros->getFileLink(%node.args, $_scripter, $_scripter_file_rendering)');
+        }
         
         
         
@@ -74,6 +84,18 @@ class Macros extends Nette\Object{
          * @throws \Exception
          */
         public function getImgLink($path, Scripter $scripter, CacheObject $file_rendering){
+            return 'url("'.$this->getFileLink($path, $scripter, $file_rendering).'")';
+        }
+         
+        
+        /**
+         * 
+         * @param string $path
+         * @param \DIPcms\Scripter\CacheObject $file
+         * @return string
+         * @throws \Exception
+         */
+        public function getFileLink($path, Scripter $scripter, CacheObject $file_rendering){
             
             $f = realpath($file_rendering->dir . $path);
             $file = $scripter->addFile($f);
@@ -81,9 +103,7 @@ class Macros extends Nette\Object{
             if(!file_exists($f)){
                 throw new \Exception($f.' file Not Found');
             }
-
-            return 'url("/'.$this->config->url_path_name.'/'.$name.'/'.$file->type.'")';
+            return '/'.$this->config->url_path_name.'/'.$name.'/'.$file->type;
         }
-         
 }
 

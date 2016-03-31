@@ -46,7 +46,14 @@ class Config extends Nette\Object{
 
     public function __construct($parameters) {
         
-        $this->temp_dir = $parameters['tempDir'].'/cache/scripter';
+       
+        foreach($parameters as $name=>$value){
+            if(property_exists($this, $name)){
+                $this->$name = $value;
+            }
+        }
+        
+        
         $this->name = session_id().'_'.md5($_SERVER['REQUEST_URI']);
 
     }

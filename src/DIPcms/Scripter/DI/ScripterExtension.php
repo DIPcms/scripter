@@ -18,14 +18,24 @@ ob_start("ob_gzhandler", 0, PHP_OUTPUT_HANDLER_REMOVABLE);
 
 class ScripterExtension extends CompilerExtension{
     
+    
+    public $config = array(
+        'temp_dir'=> '', 
+        'url_path_name' => 'getsource',
+        'default_syntax'=> 'asp'
+    );
   
     
     public function loadConfiguration() {
         
         $builder = $this->getContainerBuilder();
+        $parameters  = $builder->parameters;
+        
+        $this->config['temp_dir'] = $parameters['tempDir'].'/cache/scripter';
+        $config = $this->getConfig($this->config);
         
         $builder->addDefinition($this->prefix('config'))
-		->setClass('DIPcms\Scripter\Config', array($builder->parameters))
+		->setClass('DIPcms\Scripter\Config', array($config))
                 ->setInject(false);
       
         
@@ -117,8 +127,6 @@ class ScripterExtension extends CompilerExtension{
                         
             $page = ob_get_contents();
             ob_end_clean();
-            
-            
             
             $header_type = $response->getHeader("Content-Type");
                 

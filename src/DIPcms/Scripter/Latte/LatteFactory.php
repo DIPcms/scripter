@@ -19,6 +19,7 @@ use Latte\Engine;
 use DIPcms\Scripter\Cache\CacheProvider;
 use DIPcms\Scripter\Cache\CacheObject;
 use DIPcms\Scripter\Scripter;
+use DIPcms\Scripter\Config;
 
 class LatteFactory extends Nette\Object{
     
@@ -47,11 +48,11 @@ class LatteFactory extends Nette\Object{
     private $params = array();
     
     
-    public function __construct(CacheProvider $cache){
+    public function __construct(CacheProvider $cache, Config $config){
         $this->cache = $cache;
         $this->latte = new Engine();
         $parser = $this->latte->getParser();
-        $parser->defaultSyntax = 'asp';
+        $parser->defaultSyntax = $config->default_syntax;
         $this->latte->setTempDirectory($cache->config->temp_dir);
     }
     

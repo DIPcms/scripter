@@ -49,7 +49,8 @@ Details on how you can find [syntax](https://doc.nette.org/en/2.1/default-macros
 Macros
 ------
 
-*`<%img "images.jpg"%>` Save the image to cahce and creates a link to the image
+* `<%file "font.ttf"%>` Save the file to cahce and creates a link to the file.
+* `<%img "images.jpg"%>` Save the image to cahce and creates a link to the image.
 
 Default macro can be found [Latte](https://latte.nette.org/en/macros)
 

@@ -83,8 +83,8 @@ class Scripter{
         
         $file = new CacheObject($path);
         
-        if(!exif_imagetype($path)){
-                $file = $this->latte->render($file, $this);
+        if($file->type == "css" || $file->type == "js"){
+            $file = $this->latte->render($file, $this);
         }
 
         $file->source = $this->preparationSource($file->source, $file->type);
