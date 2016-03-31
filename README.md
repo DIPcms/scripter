@@ -38,6 +38,7 @@ Rendering CSS and JS
 
 >Rendering is performed by [Nette Latte](https://doc.nette.org/en/2.1/templating#toc-latte) (template engine)
 >Macros are written with the help of ASP tags. It depends on the settings. You can also use:
+
 *latte: `{ ... }`
 *double: `{{ ... }}`
 *asp: `<% ... %>`
