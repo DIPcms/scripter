@@ -47,6 +47,12 @@ class CacheProvider extends Nette\Object{
      */
     private $cache_data;
     
+    /**
+     *
+     * @var ArrayObject[]|\DIPcms\Scripter\Cache\CacheObject
+     */
+    private $use_files;
+    
     
     public function __construct(Config $config) {
         $this->config = $config;
@@ -60,7 +66,28 @@ class CacheProvider extends Nette\Object{
                 
         $this->cache_file_name = $this->createCacheFileName();
         $this->cache_data = $this->getCache();
+        $this->removeOldFiel();
 
+    }
+    
+    
+    /**
+     * 
+     * @return ArrayObject[]|\DIPcms\Scripter\Cache\CacheObject
+     */
+    public function getUseFiles(){
+        return $this->use_files;
+    }
+    
+    
+    public function removeNotUseFile(){
+        
+        foreach($this->cache_data[$this->getCacheFileName()] as $id => $file){
+            if(!isset($this->use_files[$file->name])){
+                unset($this->cache_data[$this->getCacheFileName()][$id]);
+            }
+        }
+        $this->cache->save("scripter", $this->cache_data);
     }
     
     
@@ -80,6 +107,26 @@ class CacheProvider extends Nette\Object{
     
     /**
      * 
+     */
+    private function removeOldFiel(){
+
+        foreach($this->cache_data as $name => $page){
+            foreach($page as $id => $file){
+                if(time() - $file->time_create >= 20){
+                    unset($this->cache_data[$name][$id]);
+                }
+            }
+            if(count($this->cache_data[$name]) == 0){
+                unset($this->cache_data[$name]);
+            }
+        }
+    }
+    
+    
+    
+    
+    /**
+     * 
      * @return ArrayObject[][]|\DIPcms\Scripter\CacheObject
      */
     public function getCacheData(){
@@ -89,10 +136,23 @@ class CacheProvider extends Nette\Object{
     
     /**
      * 
+     * @param string $name
+     */
+    public function removeFile($name){
+        if(isset($this->cache_data[$this->getCacheFileName()][$name])){
+            unset($this->cache_data[$this->getCacheFileName()][$name]);
+            $this->cache->save('scripter', $this->cache_data);
+        }        
+    }
+
+
+    
+    /**
+     * 
      * @return string
      */
     public function createCacheFileName(){
-        return md5($_SERVER['REQUEST_URI']);   
+        return  session_id().'_'.md5($_SERVER['REQUEST_URI']);   
     }
     
     
@@ -114,6 +174,7 @@ class CacheProvider extends Nette\Object{
         
         $this->cache_data[$this->cache_file_name][] = $file; 
         $this->cache->save('scripter', $this->cache_data);
+        $this->use_files[$file->name] = $file;
         
     }
     
@@ -151,6 +212,7 @@ class CacheProvider extends Nette\Object{
             if($file->path == $path){
                 $this->cache_data[$this->cache_file_name][$index] = $toReplace;
                 $this->cache->save('scripter', $this->cache_data);
+                $this->use_files[$toReplace->name] = $toReplace;
                 $instaled = true;
             }
         }
@@ -168,10 +230,11 @@ class CacheProvider extends Nette\Object{
      * @return \DIPcms\Scripter\CacheObject
      */
     public function getFile($path){
-        
-        foreach($this->cache_data[$this->cache_file_name] as $file){
-            if($file->path == $path){
-                return $file;
+        if(isset($this->cache_data[$this->cache_file_name])){
+            foreach($this->cache_data[$this->cache_file_name] as $file){
+                if($file->path == $path){
+                    return $file;
+                }
             }
         }
         return null;

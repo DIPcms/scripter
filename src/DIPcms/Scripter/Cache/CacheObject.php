@@ -66,6 +66,11 @@ class CacheObject extends Nette\Object{
      */
     public $source;
     
+    /**
+     *
+     * @var integer 
+     */
+    public $time_create;
     
     
     
@@ -75,8 +80,8 @@ class CacheObject extends Nette\Object{
             throw new \Exception("$path file Not Found");
         }
         
-        $this->name = md5($path);
-        
+        $this->time_create = time();
+        $this->name = session_id().'_'.md5($path);        
         $file = new \SplFileInfo($path); 
         
         $this->file_name_no_extension = str_replace('.'.$file->getExtension(), '', $file->getFilename());
@@ -88,6 +93,17 @@ class CacheObject extends Nette\Object{
         
                 
         $this->source = $source;
+    }
+    
+    
+    /**
+     * 
+     * @return \DateTime
+     */
+    public function getDateTimeCreate(){
+        $date = new \DateTime();
+        $date->setTimestamp($this->time_create);
+        return $date;
     }
     
     

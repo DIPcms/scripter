@@ -117,10 +117,13 @@ class ScripterExtension extends CompilerExtension{
                         
             $page = ob_get_contents();
             ob_end_clean();
-
+            
+            
+            
             $header_type = $response->getHeader("Content-Type");
                 
             if($header_type && strpos($header_type, "text/html") === 0){
+                $scripter->cache->removeNotUseFile();
                 preg_match('/(?:<head[^>]*>)(.*?)<\/head>/s', $page, $matches);
                 if(isset($matches[1])){
                    $replace = $matches[1];

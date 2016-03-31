@@ -13,14 +13,15 @@
 	],
 	
 	"require": {
-                "dipcms/template-extensions": "~1.0@dev",
+                "nette/application":"~2.3@dev",
 		"nette/di": "~2.3@dev",
+                "nette/http":"~2.3@dev",
                 "latte/latte": "~2.3@dev",
                 "nette/caching": "~2.3@dev"
 	},
 	"require-dev": {
-                "dipcms/template-extensions": "~1.0@dev",
                 "nette/di": "~2.3@dev",
+                "nette/http":"~2.3@dev",
                 "latte/latte": "~2.3@dev",
                 "nette/caching": "~2.3@dev"
 	},

@@ -47,7 +47,7 @@ class Config extends Nette\Object{
     public function __construct($parameters) {
         
         $this->temp_dir = $parameters['tempDir'].'/cache/scripter';
-        $this->name = md5($_SERVER['REQUEST_URI']);
+        $this->name = session_id().'_'.md5($_SERVER['REQUEST_URI']);
 
     }
     

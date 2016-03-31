@@ -36,7 +36,7 @@ scripter:
 Rendering CSS and JS
 --------------------
 
->Rendering is performed by Nette Latte (template engine) [latte](https://doc.nette.org/en/2.1/templating#toc-latte)
+>Rendering is performed by [Nette Latte](https://doc.nette.org/en/2.1/templating#toc-latte) (template engine)
 >Macros are written with the help of ASP tags. It depends on the settings. You can also use:
 *latte: `{ ... }`
 *double: `{{ ... }}`
@@ -56,7 +56,7 @@ Default macro can be found [Latte](https://latte.nette.org/en/macros)
 Functionality
 -------------
 
-Passed parameters
+Adding Parameters to file
 
 ```php
    # use DIPcms/Scripter/Scripter;
@@ -65,7 +65,7 @@ Passed parameters
     
 ```
 
-Passed parameters
+Add file
 
 ```php
    # use DIPcms/Scripter/Scripter;
@@ -89,7 +89,6 @@ Create css file `style.css`
 Your application
 
 ```php
-
     namespace App\Presenters;
     
     use Nette;
@@ -109,3 +108,13 @@ Your application
     }
 ```
 
+Scripter automatically add a link in the header to the CSS and JS file.
+
+```html
+    <head>
+	<meta charset="utf-8">  
+        #............
+        <script type="text/javascript" src="/getsource/6666cd76f96956469e7be39d750cc7d9/js"></script>
+        <link rel="stylesheet" href="/getsource/6666cd76f96956469e7be39d750cc7d9/css">
+    </head>
+```
