@@ -61,7 +61,7 @@ Functionality
 Adding Parameters to file
 
 ```php
-   # use DIPcms/Scripter/Scripter;
+   # use DIPcms\Scripter\Scripter;
 
    $scripter->parameter_name = "value"; 
     
@@ -70,7 +70,7 @@ Adding Parameters to file
 Add file
 
 ```php
-   # use DIPcms/Scripter/Scripter;
+   # use DIPcms\Scripter\Scripter;
 
    $scripter->addFile(__DIR__ . "/style.css"); 
 ```
